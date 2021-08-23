@@ -2,8 +2,10 @@
 #define SQUARE_H
 
 #include <QGraphicsRectItem>
+#include <QMouseEvent>
 class Square: public QGraphicsRectItem{
 public:
+
     //getters/setters
     bool GetStatus();
     bool SetStatus();

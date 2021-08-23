@@ -6,16 +6,18 @@
 
 
 class Game: public QGraphicsView{
+    Q_OBJECT
 public:
     //konštruktor
     Game(QWidget* parent=NULL);
 
     //funkcie
-    void start();
+    void menu();
 
     //vlastnosti
     QGraphicsScene* scene;
-
+public slots:
+    void start();
 
 };
 
