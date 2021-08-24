@@ -2,19 +2,22 @@
 #define SQUARE_H
 
 #include <QGraphicsRectItem>
-#include <QMouseEvent>
-class Square: public QGraphicsRectItem{
+#include <QGraphicsSceneMouseEvent>
+#include <QObject>
+class Square: public QObject, public QGraphicsRectItem{
+    Q_OBJECT
 public:
+    //reakcia na kliknutie
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
-    //getters/setters
-    bool GetStatus();
-    bool SetStatus();
+    //getters
     int GetSymbol();
-    int SetSymbol();
+
+    //setters
+    void SetSymbol(int symbol);
 
 private:
     //vlastnosti
-    bool Filled;
     int  Symbol;
 
 };

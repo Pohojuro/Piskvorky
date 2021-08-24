@@ -9,8 +9,9 @@ Grid::Grid()
 
 }
 
+
 QList<Square *> Grid::GetSquares(){
-return Squares;
+    return Squares;
 }
 
 void Grid::PlaceSquares(int x, int y, int rows, int cols){
@@ -29,5 +30,6 @@ void Grid::CreateCol(int x, int y, int NumRows){
         square->setPos(x, y+50*i);
         Squares.append(square);
         game->scene->addItem(square);
+        square->SetSymbol(0);
     }
 }

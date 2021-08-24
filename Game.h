@@ -3,6 +3,7 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QString>
 
 
 class Game: public QGraphicsView{
@@ -13,12 +14,17 @@ public:
 
     //funkcie
     void menu();
+    QString GetTurn();
+    void SetTurn(QString player);
 
     //vlastnosti
     QGraphicsScene* scene;
 public slots:
     void start();
 
+private:
+    QString turn;
+    QGraphicsTextItem * playerText;
 };
 
 #endif // GAME_H

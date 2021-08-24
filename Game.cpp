@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Grid.h"
 #include <QPushButton>
+#include <QFont>
 
 Game::Game(QWidget *parent){
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -12,13 +13,17 @@ Game::Game(QWidget *parent){
     scene->setSceneRect(0,0,800,600);
     setScene(scene);
 
+    turn = QString("modrý");
 }
 
 void Game::menu(){
     //pridanie nadpisu
 
     QGraphicsTextItem * nadpis = new QGraphicsTextItem(QString("PISKVORKY"));
-    nadpis->setPos(300,50);
+    QFont font("times", 50);
+    nadpis->setFont(font);
+    int x = this->width()/2 - nadpis->boundingRect().width()/2;
+    nadpis->setPos(x,50);
     scene->addItem(nadpis);
 
     //pridanie buttonov
@@ -26,7 +31,7 @@ void Game::menu(){
     QPushButton * play = new QPushButton();
     play->setText("PLAY");
     play->setStyleSheet("height: 80px;width: 200px");
-    play->move(300,100);
+    play->move(this->width()/2 - 100,150);
     connect(play,SIGNAL(clicked()),this,SLOT(start()),Qt::QueuedConnection);
     scene->addWidget(play);
 
@@ -34,9 +39,20 @@ void Game::menu(){
     QPushButton * quit = new QPushButton();
     quit->setText("QUIT");
     quit->setStyleSheet("height: 80px;width: 200px");
-    quit->move(300,300);
+    quit->move(this->width()/2 - 100,300);
     connect(quit,SIGNAL(clicked()),this,SLOT(close()));
     scene->addWidget(quit);
+}
+
+QString Game::GetTurn(){
+    return turn;
+}
+
+void Game::SetTurn(QString player){
+    turn = player;
+    QFont fontPlayer("times",20);
+    playerText->setFont(fontPlayer);
+    playerText->setPlainText(QString("Na rade je ") + turn + QString(" hráč"));
 }
 
 
@@ -45,4 +61,7 @@ void Game::start(){
     scene->clear();
     Grid * grid = new Grid();
     grid->PlaceSquares(300, 200, 3, 3);
+    playerText = new QGraphicsTextItem();
+    SetTurn(QString("modrý"));
+    scene->addItem(playerText);
 }
