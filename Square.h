@@ -12,13 +12,16 @@ public:
 
     //getters
     int GetSymbol();
+    int GetId();
 
     //setters
     void SetSymbol(int symbol);
+    void SetId(int ID);
 
 private:
     //vlastnosti
     int  Symbol;
+    int id;
 
 };
 

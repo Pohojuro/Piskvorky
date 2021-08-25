@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QString>
+#include <Grid.h>
 
 
 class Game: public QGraphicsView{
@@ -19,6 +20,7 @@ public:
 
     //vlastnosti
     QGraphicsScene* scene;
+    Grid* grid;
 public slots:
     void start();
 

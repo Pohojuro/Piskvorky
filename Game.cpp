@@ -59,7 +59,7 @@ void Game::SetTurn(QString player){
 void Game::start(){
     //vykreslenie mriežky
     scene->clear();
-    Grid * grid = new Grid();
+    grid = new Grid();
     grid->PlaceSquares(300, 200, 3, 3);
     playerText = new QGraphicsTextItem();
     SetTurn(QString("modrý"));

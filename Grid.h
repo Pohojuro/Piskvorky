@@ -14,8 +14,9 @@ public:
 
     //funkcie
     void PlaceSquares(int x, int y, int rows, int cols);
+    bool CheckWin();
 private:
-    void CreateCol(int x, int y, int NumRows);
+    void CreateCol(int x, int y, int j, int NumRows);
     QList<Square*> Squares;
 
 };
