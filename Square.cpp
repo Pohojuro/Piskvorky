@@ -19,15 +19,15 @@ void Square::mousePressEvent(QGraphicsSceneMouseEvent *event){
     }
     //skontroluje či niekto vyhral
     if (game->grid->CheckWin() == true){
-        QGraphicsTextItem * wintext = new QGraphicsTextItem(QString("WIN"));
-        wintext->setPos(0,50);
-        game->scene->addItem(wintext);
-        //exit(0);
+        if (game->GetTurn() == QString("O")){
+            game->GameOver(QString("Vyhral hráč so znakom X"));
+        }
+        else if (game->GetTurn() == QString("X")){
+            game->GameOver(QString("Vyhral hráč so znakom O"));
+        }
     }
     if (game->grid->CheckDraw() == true && game->grid->CheckWin() == false){
-        QGraphicsTextItem * drawtext = new QGraphicsTextItem(QString("DRAW"));
-        drawtext->setPos(0,50);
-        game->scene->addItem(drawtext);
+        game->GameOver(QString("REMÍZA"));
     }
 }
 

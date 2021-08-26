@@ -17,6 +17,7 @@ public:
     void menu();
     QString GetTurn();
     void SetTurn(QString player);
+    void GameOver(QString whoWon);
 
     //vlastnosti
     QGraphicsScene* scene;
@@ -24,6 +25,7 @@ public:
 public slots:
     //slot na odštartovanie hry
     void start();
+    void restart();
 
 private:
     //vlastnosti

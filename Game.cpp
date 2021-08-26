@@ -19,7 +19,7 @@ Game::Game(QWidget *parent){
 void Game::menu(){
     //pridanie nadpisu
 
-    QGraphicsTextItem * nadpis = new QGraphicsTextItem(QString("PISKVORKY"));
+    QGraphicsTextItem * nadpis = new QGraphicsTextItem(QString("PIŠKVORKY"));
     QFont font("times", 50);
     nadpis->setFont(font);
     int x = this->width()/2 - nadpis->boundingRect().width()/2;
@@ -29,7 +29,7 @@ void Game::menu(){
     //pridanie buttonov
     //PLAY button
     QPushButton * play = new QPushButton();
-    play->setText("PLAY");
+    play->setText("HRAJ");
     play->setStyleSheet("height: 80px;width: 200px");
     play->move(this->width()/2 - 100,150);
     connect(play,SIGNAL(clicked()),this,SLOT(start()),Qt::QueuedConnection);
@@ -37,7 +37,7 @@ void Game::menu(){
 
     //QUIT button
     QPushButton * quit = new QPushButton();
-    quit->setText("QUIT");
+    quit->setText("KONIEC");
     quit->setStyleSheet("height: 80px;width: 200px");
     quit->move(this->width()/2 - 100,300);
     connect(quit,SIGNAL(clicked()),this,SLOT(close()));
@@ -54,6 +54,33 @@ void Game::SetTurn(QString player){
     QFont fontPlayer("times",20);
     playerText->setFont(fontPlayer);
     playerText->setPlainText(QString("Na rade je hráč so symbolom ") + turn);
+    playerText->setPos(this->width()/2 - playerText->boundingRect().width()/2, 180);
+}
+
+void Game::GameOver(QString whoWon){
+    //vykreslenie textu kto vyhral
+    this->playerText->hide();
+    QGraphicsTextItem * endText = new QGraphicsTextItem(whoWon);
+    QFont fontEnd("times",20);
+    endText->setFont(fontEnd);
+    endText->setPos(this->width()/2 - endText->boundingRect().width()/2,75);
+    scene->addItem(endText);
+
+    //PushButton na replay
+    QPushButton * replay = new QPushButton();
+    replay->setText("HRAJ ZNOVU");
+    replay->setStyleSheet("height: 40px;width: 100px");
+    replay->move(this->width()/2 - 50, 110);
+    connect(replay,SIGNAL(clicked()),this,SLOT(restart()),Qt::QueuedConnection);
+    scene->addWidget(replay);
+
+    //PushButton na koniec hry
+    QPushButton * quit2 = new QPushButton();
+    quit2->setText("KONIEC");
+    quit2->setStyleSheet("height: 40px;width: 100px");
+    quit2->move(this->width()/2 - 50, 165);
+    connect(quit2,SIGNAL(clicked()),this,SLOT(close()));
+    scene->addWidget(quit2);
 }
 
 
@@ -65,4 +92,10 @@ void Game::start(){
     playerText = new QGraphicsTextItem();
     SetTurn(QString("X"));
     scene->addItem(playerText);
+}
+
+void Game::restart(){
+    grid->GetSquares().clear();
+    scene->clear();
+    start();
 }
