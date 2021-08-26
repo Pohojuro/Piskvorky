@@ -1,26 +1,33 @@
 #include "Square.h"
 #include "Grid.h"
 #include "Game.h"
-#include <QBrush>
 
 
 extern Game* game;
 
 
 void Square::mousePressEvent(QGraphicsSceneMouseEvent *event){
-    if(game->GetTurn() == QString("modrý") && this->GetSymbol() == 0){
+    //ak je na rade X, nastaví X
+    if(game->GetTurn() == QString("X") && this->GetSymbol() == 0 && game->grid->CheckWin() == false){
         this->SetSymbol(1);
-        game->SetTurn(QString("červený"));
+        game->SetTurn(QString("O"));
     }
-    else if (game->GetTurn() == QString("červený") && this->GetSymbol() == 0){
+    //ak je na rade O, nastaví O
+    else if (game->GetTurn() == QString("O") && this->GetSymbol() == 0 && game->grid->CheckWin() == false){
         this->SetSymbol(2);
-        game->SetTurn(QString("modrý"));
+        game->SetTurn(QString("X"));
     }
+    //skontroluje či niekto vyhral
     if (game->grid->CheckWin() == true){
         QGraphicsTextItem * wintext = new QGraphicsTextItem(QString("WIN"));
         wintext->setPos(0,50);
         game->scene->addItem(wintext);
         //exit(0);
+    }
+    if (game->grid->CheckDraw() == true && game->grid->CheckWin() == false){
+        QGraphicsTextItem * drawtext = new QGraphicsTextItem(QString("DRAW"));
+        drawtext->setPos(0,50);
+        game->scene->addItem(drawtext);
     }
 }
 
@@ -36,6 +43,7 @@ int Square::GetId(){
 
 void Square::SetSymbol(int symbol)
 {
+    //nastaví symbol pre konkrétny square
     Symbol = symbol;
 
     if(symbol == 0){
@@ -45,16 +53,21 @@ void Square::SetSymbol(int symbol)
         setBrush(brush);
     }
     if(symbol == 1){
-        QBrush brush;
-        brush.setStyle(Qt::SolidPattern);
-        brush.setColor(Qt::blue);
-        setBrush(brush);
+        QPen pen;
+        pen.setWidth(4);
+        QGraphicsLineItem * line1 = new QGraphicsLineItem(this);
+        line1->setLine(8,8,42,42);
+        line1->setPen(pen);
+        QGraphicsLineItem * line2 = new QGraphicsLineItem(this);
+        line2->setLine(42,8,8,42);
+        line2->setPen(pen);
     }
     if(symbol == 2){
-        QBrush brush;
-        brush.setStyle(Qt::SolidPattern);
-        brush.setColor(Qt::red);
-        setBrush(brush);
+        QGraphicsEllipseItem * kruh = new QGraphicsEllipseItem(this);
+        kruh->setRect(7,7,35,35);
+        QPen pen;
+        pen.setWidth(4);
+        kruh->setPen(pen);
     }
 
 }

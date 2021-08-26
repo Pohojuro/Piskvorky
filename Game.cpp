@@ -13,7 +13,7 @@ Game::Game(QWidget *parent){
     scene->setSceneRect(0,0,800,600);
     setScene(scene);
 
-    turn = QString("modrý");
+    turn = QString("X");
 }
 
 void Game::menu(){
@@ -49,10 +49,11 @@ QString Game::GetTurn(){
 }
 
 void Game::SetTurn(QString player){
+    //nastaví kto je práve na rade
     turn = player;
     QFont fontPlayer("times",20);
     playerText->setFont(fontPlayer);
-    playerText->setPlainText(QString("Na rade je ") + turn + QString(" hráč"));
+    playerText->setPlainText(QString("Na rade je hráč so symbolom ") + turn);
 }
 
 
@@ -60,8 +61,8 @@ void Game::start(){
     //vykreslenie mriežky
     scene->clear();
     grid = new Grid();
-    grid->PlaceSquares(300, 200, 3, 3);
+    grid->PlaceSquares(325, 225, 3, 3);
     playerText = new QGraphicsTextItem();
-    SetTurn(QString("modrý"));
+    SetTurn(QString("X"));
     scene->addItem(playerText);
 }

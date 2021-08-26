@@ -44,6 +44,21 @@ bool Grid::CheckWin(){
     return false;
 }
 
+bool Grid::CheckDraw(){
+    numEmpty = 0;
+    for (auto i = 0; i < 9; i++){
+        if (Squares[i]->GetSymbol() == 0){
+            numEmpty++;
+        }
+    }
+    if (numEmpty == 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 void Grid::CreateCol(int x, int y, int j, int NumRows){
     x+=50*j;
     //cyklus na vykreslenie stĺpca

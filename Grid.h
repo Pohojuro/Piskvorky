@@ -9,15 +9,17 @@ public:
     //konštruktor
     Grid();
 
-    //getters/setters
+    //getters
     QList<Square*> GetSquares();
 
     //funkcie
     void PlaceSquares(int x, int y, int rows, int cols);
     bool CheckWin();
+    bool CheckDraw();
 private:
     void CreateCol(int x, int y, int j, int NumRows);
     QList<Square*> Squares;
+    int numEmpty;
 
 };
 

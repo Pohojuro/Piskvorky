@@ -22,9 +22,11 @@ public:
     QGraphicsScene* scene;
     Grid* grid;
 public slots:
+    //slot na odštartovanie hry
     void start();
 
 private:
+    //vlastnosti
     QString turn;
     QGraphicsTextItem * playerText;
 };
